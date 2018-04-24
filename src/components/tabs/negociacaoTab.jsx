@@ -33,10 +33,10 @@ class NegociacaoTab extends React.Component {
           return {
             _id: i['_id'],
             data: <Moment locale="pt-br" format="DD MMM HH:mm">{i['date_exec']}</Moment>,
-            amount: amount,
+            qtd: amount,
             tipo: <BuySellLabel tipo={i['type']} />,
-            preco: formatCurrencyToBr(i['price']),
-            total: formatCurrencyToBr(i['total'])
+            preco: i['price'],
+            total: i['total']
           }
 
         });
@@ -54,8 +54,13 @@ class NegociacaoTab extends React.Component {
         },
         {
           Header: "qtd",
-          id: "amount",
-          accessor: d => d.amount
+          accessor: "qtd",
+          sortMethod: (a, b) => {
+                    if (a.length === b.length) {
+                      return a > b ? 1 : -1;
+                    }
+                    return a.length > b.length ? 1 : -1;
+          }
         },
         {
           Header: "ação",
@@ -64,10 +69,24 @@ class NegociacaoTab extends React.Component {
         },
         {
           Header: "preço",
-          accessor: "preco"
+          accessor: "preco",
+          Cell: props => formatCurrencyToBr(props.value),
+          sortMethod: (a, b) => {
+                    if (a.length === b.length) {
+                      return a > b ? 1 : -1;
+                    }
+                    return a.length > b.length ? 1 : -1;
+          }
         }, {
           Header: "total",
-          accessor: "total"
+          accessor: "total",
+          Cell: props => formatCurrencyToBr(props.value),
+          sortMethod: (a, b) => {
+                    if (a.length === b.length) {
+                      return a > b ? 1 : -1;
+                    }
+                    return a.length > b.length ? 1 : -1;
+          }
         }
       ]}
       defaultSorted={this.state.sorted}
@@ -80,25 +99,10 @@ class NegociacaoTab extends React.Component {
 
   render() {
     return (
-      <div id="historicoTabContent" className={`tabcontent ${this.props.status}`}>
-
-      {/* <table className="table table-bordered table-striped trade">
-        <thead>
-          <tr>
-            <th>data</th>
-            <th>qtd</th>
-            <th>tipo</th>
-            <th>preço</th>
-            <th>total</th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.processMountData(this.props.dataHistorico)}
-        </tbody>
-      </table> */}
+      <div id="historicoTabContent"
+        className={`tabcontent ${this.props.status}`}>
         {this.mountTable()}
-
-    </div>
+      </div>
     )
   }
 }
