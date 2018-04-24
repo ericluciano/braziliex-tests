@@ -5,8 +5,8 @@ import Buttons from './buttons';
 
 //tabs
 import NegociacaoTab from './negociacaoTab';
-import MercadoTab from './mercadoTab';
-import CurrenciesTab from './currenciesTab';
+import InvestingTab from './investingTab';
+import BraziliexTab from './braziliexTab';
 
 
 class Tabs extends React.Component {
@@ -19,20 +19,20 @@ class Tabs extends React.Component {
     const { active } = this.props.tabs;
 
     const tabHistorico = active === 'historico' ? 'active' : '';
-    const tabMercado = active === 'mercado' ? 'active' : '';
-    const tabCurrencies = active === 'currencies' ? 'active' : '';
+    const tabInvesting = active === 'investing' ? 'active' : '';
+    const tabBraziliex = active === 'braziliex' ? 'active' : '';
     return (
       <div>
 
         <div className="tab">
           <Buttons action='historico' tabTitle='Negociações' active={tabHistorico} mark={true} />
-          <Buttons action='currencies' tabTitle='Braziliex' active={tabCurrencies} mark={false} />
-          <Buttons action='mercado' tabTitle='Investing' active={tabMercado} mark={false} />
+          <Buttons action='braziliex' tabTitle='Braziliex' active={tabBraziliex} mark={false} />
+          <Buttons action='investing' tabTitle='Investing' active={tabInvesting} mark={false} />
         </div>
 
         <NegociacaoTab status={tabHistorico} />
-        <MercadoTab status={tabMercado} />
-        <CurrenciesTab status={tabCurrencies} />
+        <InvestingTab status={tabInvesting} />
+        <BraziliexTab status={tabBraziliex} />
 
       </div>
     )
