@@ -4,4 +4,4 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 Projeto para fazer alguns testes com a Api fornecida pela Braziliex.
 
-## [Demos and examples](https://ericluciano.com/brz)
+#### [Demo](https://ericluciano.com/brz)
