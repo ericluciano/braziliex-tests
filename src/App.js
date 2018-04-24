@@ -9,17 +9,11 @@ import { bindActionCreators } from 'redux';
 import { changeCripto, closeOrOpenModalCripto, callApiMercado, callApiHistorico, checkLoading, callApiCurrencies } from './reducers/criptoActions';
 
 // components
-import BarTop from './components/barTop';
+import BarFixedTop from './components/barFixedTop/barFixedTop';
 import Header from './components/header/header';
-import ChangeCripto from './components/changeCripto/changeCripto';
-import BarInfo from './components/barInfo/barInfo';
+import ModalCurrency from './components/modalCurrency/modalCurrency';
+import BarAfterHeader from './components/barAfterHeader/barAfterHeader';
 import Tabs from './components/tabs/tabs';
-
-// //api
-// import { apiTrade, apiMercado } from './constantes/api';
-//
-// //constantes
-// import { moedas } from './constantes/moedas';
 
 // utils
 import { formatCurrencyToBr } from './utils/utils';
@@ -77,9 +71,9 @@ class App extends Component {
 
   }
 
-  renderBarTop(v) {
+  mountBarFixedTop(v) {
 
-    const barTop = {
+    const item = {
           uc: formatCurrencyToBr(v.dataMercado.last || 0),
           cma: formatCurrencyToBr(v.dataMercado.highestBid24 || 0),
           cmb: formatCurrencyToBr(v.dataMercado.lowestAsk24 || 0),
@@ -88,7 +82,7 @@ class App extends Component {
         };
 
     return(
-      <BarTop uc={barTop.uc} cma={barTop.cma} cmb={barTop.cmb} volume={barTop.volume} active={barTop.active} />
+      <BarFixedTop uc={item.uc} cma={item.cma} cmb={item.cmb} volume={item.volume} active={item.active} />
     )
   }
 
@@ -110,7 +104,7 @@ class App extends Component {
       <div className="container-fluid">
 
         {this.load()}
-        {this.renderBarTop(this.props)}
+        {this.mountBarFixedTop(this.props)}
         <div className="row">
           <Header moedaLogo={this.props.moedaAtual} />
         </div>
@@ -118,11 +112,11 @@ class App extends Component {
         <div className="row">
         <div className="col-xs-12">
 
-          <BarInfo compra={this.getCompra('buy')} venda={this.getCompra('sell')} total={this.getCompra('total')} totalCompra={this.getCompra('totalCompra')} totalVenda={this.getCompra('totalVenda')} totalMontante={this.getCompra('totalGeral')} />
+          <BarAfterHeader compra={this.getCompra('buy')} venda={this.getCompra('sell')} total={this.getCompra('total')} totalCompra={this.getCompra('totalCompra')} totalVenda={this.getCompra('totalVenda')} totalMontante={this.getCompra('totalGeral')} />
           <Tabs />
         </div>
         </div>
-        <ChangeCripto />
+        <ModalCurrency />
 
       </div>
     );
