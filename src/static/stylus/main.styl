@@ -24,8 +24,8 @@ body
   height:100%
   background-color:rgba(255,255,255,0.8)
   z-index:100
-.loading.inactive
-  display:none
+  &.inactive
+    display:none
 
 //table
 .rt-td
@@ -45,7 +45,7 @@ th
 //barra topo
 $bgBarra = #f4f4f4
 
-ul.mercado-sngls
+ul.currency-market
   list-style-type: none
   display:flex
   -ms-align-items: center
@@ -60,11 +60,10 @@ ul.mercado-sngls
   box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.176)
   color:#555
   li span
-    font-family: 'SanFranciscoDisplay-Medium', sans-serif
     color:#222
 
 //barra pre table
-.pre-table
+.bar-after-header
   display:flex
   justify-content: space-around
   align-items: center
@@ -109,7 +108,7 @@ $topIcon = 6px
   cursor:pointer
 
 //barra fixa topo
-.fixed-top
+.bar-fixed-top
   position:fixed
   top:-30px
   left:0
@@ -131,7 +130,7 @@ $topIcon = 6px
 
 //modal change
 //
-.source-frame
+.bg-modal-currency
   position: absolute
   top: 0
   left: 0
@@ -150,7 +149,7 @@ $topIcon = 6px
     opacity: 1
     visibility: visible
 
-.crypto-change
+.modal-currency
   position:absolute
   height: 80%
   width: 94%
@@ -185,6 +184,21 @@ $topIcon = 6px
     visibility: visible
     -webkit-transform: scale(1)
     transform: scale(1)
+
+  .close
+    position: absolute
+    top: 0
+    left: 20px
+    color: #2B81F5
+    font-size:3em
+    cursor:pointer
+    &.active
+      /*opacity: 1
+      visibility: visible*/
+      opacity: 1
+      visibility: visible
+      -webkit-transform: scale(1)
+      transform: scale(1)
 
   .content
     display: flex
@@ -232,14 +246,6 @@ $topIcon = 6px
       visibility: visible
       -webkit-transform: scaleX(1)
       transform: scaleX(1)
-
-.close-change
-  position: absolute
-  top: 0
-  left: 20px
-  color: #2B81F5
-  font-size:3em
-  cursor:pointer
 
 .tab
   overflow: hidden
@@ -344,7 +350,7 @@ $topIcon = 6px
   body{
     margin-top:20px
   }
-  ul.mercado-sngls
+  ul.market-currency
     justify-content: center
     flex-direction:row
     -webkit-flex-wrap: wrap
@@ -353,7 +359,7 @@ $topIcon = 6px
     li
       min-width:150px
 
-  .pre-table
+  .bar-after-header
     flex-direction:column
     padding:16px 10px
     margin-bottom:10px
