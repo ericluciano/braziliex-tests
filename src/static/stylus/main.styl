@@ -27,20 +27,25 @@ body
   &.inactive
     display:none
 
-//table
-.rt-td
-  text-align: center
-  font-style: normal
-
+//
 th
   font-size:1.6rem
   font-weight:300
 
-.rt-th
-  font-size:1.6rem
-  font-weight:300
-  text-align:center
-  outline:none
+//table
+.ReactTable
+  .rt-thead
+    overflow-y: scroll
+
+  .rt-td
+    text-align: center
+    font-style: normal
+
+  .rt-th
+    font-size: 1.6rem
+    font-weight: 300
+    text-align: center
+    outline: none
 
 //barra topo
 $bgBarra = #f4f4f4
@@ -187,14 +192,13 @@ $topIcon = 6px
 
   .close
     position: absolute
-    top: 0
-    left: 20px
+    top: 20px
+    left: 24px
     color: #2B81F5
-    font-size:3em
-    cursor:pointer
+    font-size: 3em
+    cursor: pointer
+
     &.active
-      /*opacity: 1
-      visibility: visible*/
       opacity: 1
       visibility: visible
       -webkit-transform: scale(1)
@@ -347,10 +351,10 @@ $topIcon = 6px
 
 
 @media screen and (max-width:768px)
-  body{
+  body
     margin-top:20px
-  }
-  ul.market-currency
+
+  ul.currency-market
     justify-content: center
     flex-direction:row
     -webkit-flex-wrap: wrap
