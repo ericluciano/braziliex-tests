@@ -44,12 +44,12 @@ barAfterHeader.defaultProps = {
 };
 
 barAfterHeader.propTypes = {
-  compra: PropTypes.number,
-  venda: PropTypes.number,
-  total: PropTypes.number,
-  totalCompra: PropTypes.number,
-  totalVenda: PropTypes.number,
-  totalMontante: PropTypes.number,
+  compra: PropTypes.string,
+  venda: PropTypes.string,
+  total: PropTypes.string,
+  totalCompra: PropTypes.string,
+  totalVenda: PropTypes.string,
+  totalMontante: PropTypes.string,
 };
 
 export default barAfterHeader;
