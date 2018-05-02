@@ -34,10 +34,10 @@ barFixedTop.defaultProps = {
 
 barFixedTop.propTypes = {
   active: PropTypes.string,
-  uc: PropTypes.number,
-  volume: PropTypes.number,
-  cma: PropTypes.number,
-  cmb: PropTypes.number,
+  uc: PropTypes.string,
+  volume: PropTypes.string,
+  cma: PropTypes.string,
+  cmb: PropTypes.string,
 };
 
 export default barFixedTop;
