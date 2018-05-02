@@ -77,7 +77,7 @@ class App extends Component {
     this.props.checkLoading(true);
     this.props.callApiMercado(this.props.moedaAtual);
     this.props.callApiHistorico(this.props.moedaAtual);
-    this.props.callApiCurrencies();
+    // this.props.callApiCurrencies();
   }
 
   load() {
@@ -145,11 +145,11 @@ App.defaultProps = {
 App.propTypes = {
   callApiMercado: PropTypes.func.isRequired,
   callApiHistorico: PropTypes.func.isRequired,
-  callApiCurrencies: PropTypes.func.isRequired,
+  // callApiCurrencies: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   moedaAtual: PropTypes.string.isRequired,
   dataHistorico: PropTypes.instanceOf(Object),
-  checkLoading: PropTypes.bool.isRequired,
+  checkLoading: PropTypes.func.isRequired,
   errorMessage: PropTypes.string,
 };
 
