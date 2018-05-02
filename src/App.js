@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-
-//import axios from 'axios';
-
-//redux
+import PropTypes from 'prop-types';
+// redux
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
-import { changeCripto, closeOrOpenModalCripto, callApiMercado, callApiHistorico, checkLoading, callApiCurrencies } from './reducers/criptoActions';
+// action creators
+import { callApiMercado, callApiHistorico, checkLoading, callApiCurrencies } from './reducers/criptoActions';
 
 // components
 import BarFixedTop from './components/barFixedTop/barFixedTop';
@@ -19,31 +17,35 @@ import Tabs from './components/tabs/tabs';
 import { formatCurrencyToBr } from './utils/utils';
 
 class App extends Component {
+  static mountValuesFixedTop(v) {
+    const item = {
+      uc: formatCurrencyToBr(v.dataMercado.last || 0),
+      cma: formatCurrencyToBr(v.dataMercado.highestBid24 || 0),
+      cmb: formatCurrencyToBr(v.dataMercado.lowestAsk24 || 0),
+      volume: formatCurrencyToBr(v.dataMercado.quoteVolume24 || 0),
+      active: v.barTopActive,
+    };
+    return item;
+  }
+
   constructor(props) {
     super(props);
     this.state = {
-      tempo: 60000
+      tempo: 60000,
     };
+  }
 
-  }
-  call() {
-    this.props.checkLoading(true);
-    this.props.callApiMercado(this.props.moedaAtual);
-    this.props.callApiHistorico(this.props.moedaAtual);
-    this.props.callApiCurrencies();
-  }
   componentWillMount() {
-      this.call();
+    this.call();
   }
 
   componentDidMount() {
     setInterval(() => {
-      this.call()
-    },this.state.tempo)
+      this.call();
+    }, this.state.tempo);
   }
 
   getCompra(type) {
-
     const dados = this.props.dataHistorico;
 
     let i = 0;
@@ -51,12 +53,12 @@ class App extends Component {
     let totalVenda = parseFloat(0);
 
     dados.forEach((f) => {
-      if(f.type === "buy") {
-        i = i+1;
-        totalCompra = totalCompra + Number(f.total);
+      if (f.type === 'buy') {
+        i += 1;
+        totalCompra += Number(f.total);
       }
-      totalVenda = totalVenda + Number(f.total);
-    })
+      totalVenda += Number(f.total);
+    });
 
     const items = {
       buy: i,
@@ -64,60 +66,53 @@ class App extends Component {
       total: 100,
       totalCompra: formatCurrencyToBr(totalCompra),
       totalVenda: formatCurrencyToBr(totalVenda),
-      totalGeral: formatCurrencyToBr(totalVenda + totalCompra)
+      totalGeral: formatCurrencyToBr(totalVenda + totalCompra),
     };
 
     return items[type];
-
   }
 
-  mountBarFixedTop(v) {
-
-    const item = {
-          uc: formatCurrencyToBr(v.dataMercado.last || 0),
-          cma: formatCurrencyToBr(v.dataMercado.highestBid24 || 0),
-          cmb: formatCurrencyToBr(v.dataMercado.lowestAsk24 || 0),
-          volume: formatCurrencyToBr(v.dataMercado.quoteVolume24 || 0),
-          active: v.barTopActive
-        };
-
-    return(
-      <BarFixedTop uc={item.uc} cma={item.cma} cmb={item.cmb} volume={item.volume} active={item.active} />
-    )
+  call() {
+    this.props.checkLoading(true);
+    this.props.callApiMercado(this.props.moedaAtual);
+    this.props.callApiHistorico(this.props.moedaAtual);
+    this.props.callApiCurrencies();
   }
 
   load() {
+    const load = this.props.loading === true ?
+      'active' : 'inactive';
 
-    const load = this.props.loading === true ? 'active': 'inactive';
-
-    return(
-      <div class={`loading ${load}`}>
-        <div className="spinner"></div>
+    return (
+      <div className={`loading ${load}`}>
+        <div className="spinner" />
         <div className="message">{this.props.errorMessage}</div>
       </div>
-    )
+    );
   }
 
   render() {
-
+    const bar = App.mountValuesFixedTop(this.props);
     return (
       <div className="container-fluid">
-
         {this.load()}
-        {this.mountBarFixedTop(this.props)}
+        <BarFixedTop
+          uc={bar.uc}
+          cma={bar.cma}
+          cmb={bar.cmb}
+          volume={bar.volume}
+          active={bar.active}
+        />
         <div className="row">
           <Header moedaLogo={this.props.moedaAtual} />
         </div>
-
         <div className="row">
-        <div className="col-xs-12">
-
-          <BarAfterHeader compra={this.getCompra('buy')} venda={this.getCompra('sell')} total={this.getCompra('total')} totalCompra={this.getCompra('totalCompra')} totalVenda={this.getCompra('totalVenda')} totalMontante={this.getCompra('totalGeral')} />
-          <Tabs />
-        </div>
+          <div className="col-xs-12">
+            <BarAfterHeader compra={this.getCompra('buy')} venda={this.getCompra('sell')} total={this.getCompra('total')} totalCompra={this.getCompra('totalCompra')} totalVenda={this.getCompra('totalVenda')} totalMontante={this.getCompra('totalGeral')} />
+            <Tabs />
+          </div>
         </div>
         <ModalCurrency />
-
       </div>
     );
   }
@@ -133,7 +128,28 @@ const mapStateToProps = state => ({
   currencies: state.cripto.currencies,
 });
 
-const mapDispatchToProps = dispatch =>
-bindActionCreators({ changeCripto, closeOrOpenModalCripto, callApiMercado, callApiHistorico, checkLoading, callApiCurrencies  }, dispatch);
+const mapDispatchToProps =
+dispatch => bindActionCreators({
+  callApiMercado,
+  callApiHistorico,
+  checkLoading,
+  callApiCurrencies,
+}, dispatch);
+
+App.defaultProps = {
+  dataHistorico: {},
+  errorMessage: '',
+};
+
+App.propTypes = {
+  callApiMercado: PropTypes.func.isRequired,
+  callApiHistorico: PropTypes.func.isRequired,
+  callApiCurrencies: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  moedaAtual: PropTypes.string.isRequired,
+  dataHistorico: PropTypes.instanceOf(Object),
+  checkLoading: PropTypes.bool.isRequired,
+  errorMessage: PropTypes.string,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
