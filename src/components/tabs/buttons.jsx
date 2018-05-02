@@ -12,15 +12,15 @@ class Buttons extends React.Component {
     this.callClick = this.callClick.bind(this);
   }
 
-  callOrNotReloadHistorico(props) {
+  /* callOrNotReloadHistorico(props) {
     if (props) {
       this.props.changeCripto(this.props.moedaAtual);
     }
-  }
+  } */
 
   callClick() {
     this.props.tabsNavegarPara(this.props.action);
-    this.callOrNotReloadHistorico(this.props.mark);
+    // this.callOrNotReloadHistorico(this.props.mark);
   }
 
   render() {
@@ -44,12 +44,12 @@ const mapDispatchToProps =
 dispatch => bindActionCreators({ changeCripto, tabsNavegarPara }, dispatch);
 
 Buttons.propTypes = {
-  mark: PropTypes.string.isRequired,
-  moedaAtual: PropTypes.string.isRequired,
+  // mark: PropTypes.string.isRequired,
+  // moedaAtual: PropTypes.string.isRequired,
   tabTitle: PropTypes.string.isRequired,
   active: PropTypes.string.isRequired,
   action: PropTypes.string.isRequired,
-  changeCripto: PropTypes.func.isRequired,
+  // changeCripto: PropTypes.func.isRequired,
   tabsNavegarPara: PropTypes.func.isRequired,
 };
 
