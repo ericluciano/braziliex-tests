@@ -181,7 +181,7 @@ const mapStateToProps = state => ({
 });
 
 BraziliexTab.propTypes = {
-  currencies: PropTypes.string.isRequired,
+  currencies: PropTypes.instanceOf(Object).isRequired,
   status: PropTypes.string.isRequired,
 };
 
