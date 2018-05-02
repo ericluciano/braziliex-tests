@@ -2,9 +2,12 @@
    font-family: 'SanFranciscoDisplay-Medium'
    src: url("../../fonts/SanFranciscoDisplay-Medium.otf") format("opentype")
 
+setFont(name = 'SanFranciscoDisplay-Medium', size = 1.350rem)
+  font-family: name, sans-serif
+  font-size: size
+
 body
-  font-family: 'SanFranciscoDisplay-Medium', sans-serif
-  font-size: 1.350rem
+  setFont()
   padding-top:60px
   text-rendering: optimizeLegibility
 
@@ -212,7 +215,7 @@ $topIcon = 6px
     align-self: center
     width: 100%
     height: 100%
-    font-size: 2em
+    setFont(, 2.6rem)
     line-height:160%
     overflow-y: scroll
     ul
@@ -265,7 +268,7 @@ $topIcon = 6px
     cursor: pointer
     padding: 14px 16px
     transition: 0.3s
-    font-size: 1.3rem
+    setFont(, 1.3rem)
     text-transform: uppercase
     &:hover
       background-color: #ddd
@@ -362,7 +365,7 @@ $topIcon = 6px
     flex-wrap: wrap
     li
       min-width:150px
-      
+
   .bar-after-header
     flex-direction:column
     padding:16px 10px
