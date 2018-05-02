@@ -30,8 +30,9 @@ class App extends Component {
 
   constructor(props) {
     super(props);
+
     this.state = {
-      tempo: 60000,
+      tempo: 60000 * 5,
     };
   }
 
